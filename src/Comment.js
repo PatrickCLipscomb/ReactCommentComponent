@@ -27,7 +27,7 @@ class CommentBox extends Component {
       buttonText = "Show Comments"
     }
     return (
-      <div>
+      <div className="main-div">
         <h4>{this._getCommentsTitle(comments.length)}</h4>
         <CommentForm addComment={this._addComment.bind(this)} />
         <button onClick={this._handleClick.bind(this)}>{buttonText}</button>
@@ -79,12 +79,12 @@ class Comment extends Component {
     const arrayOptions = ['Javascript', 'Ruby', 'Python']
     return (
       <div className="comment" key={this.props.id}>
-      <h1>It appears that I have discovered how to add components</h1>
+      <h2>{this.props.content}</h2>
         <ul className="arrayOptions">
           {arrayOptions.map( internship => <li>{internship}</li>)}
         </ul>
-        <h4>{this.props.content}</h4>
-        <a href="#" onClick={this._handleDelete.bind(this)}>Delete Comment</a>
+        <h4>It appears that I have discovered how to add components</h4>
+        <a href="#" onClick={this._handleDelete.bind(this)}>Delete All Other Comments</a>
       </div>
     );
   }
