@@ -6,7 +6,11 @@ class CommentBox extends Component {
   constructor() {
     super();
     this.state = {
-      showComments: false
+      showComments: false,
+      comments: [
+        {id: 1, content: "this is my very first prop"},
+        {id: 2, content: "this is only my second prop"}
+      ]
     };
   }
   render() {
@@ -24,10 +28,18 @@ class CommentBox extends Component {
     return (
       <div>
         <h4>{this._getCommentsTitle(comments.length)}</h4>
+        <CommentForm addComment={this._addComment.bind(this)} />
         <button onClick={this._handleClick.bind(this)}>{buttonText}</button>
         {commentNodes}
       </div>
     )
+  }
+  _addComment(content) {
+    const comment = {
+      id: this.state.comments.length + 1,
+      content
+    }
+    this.setState({comments: this.state.comments.concat([comment])})
   }
   _handleClick() {
     this.setState({
@@ -35,12 +47,11 @@ class CommentBox extends Component {
     });
   }
   _getComments() {
-    const commentList = [
-      {id: 1, content: "this is my very first prop"},
-      {id: 2, content: "this is only my second prop"}
-    ];
-    return commentList.map((comment) => {
-      return(<Comment content={comment.content} key={comment.id} />);
+    return this.state.comments.map((comment) => {
+      return (<Comment
+        content={comment.content}
+        key={comment.id} />
+      );
     });
   }
   _getCommentsTitle(commentCount) {
@@ -67,6 +78,20 @@ class Comment extends Component {
         <h4>{this.props.content}</h4>
       </div>
     );
+  }
+}
+
+class CommentForm extends Component {
+  render() {
+    return (
+      <form onSubmit={this._handleSubmit.bind(this)}>
+        <input placeholder="content" ref={(input) => this._content = input}/>
+      </form>
+    )
+  }
+  _handleSubmit(event) {
+    event.preventDefault();
+    this.props.addComment(this._content.value);
   }
 }
 
