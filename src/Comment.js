@@ -9,7 +9,8 @@ class CommentBox extends Component {
       showComments: false,
       comments: [
         {id: 1, content: "this is my very first prop"},
-        {id: 2, content: "this is only my second prop"}
+        {id: 2, content: "this is only my second prop"},
+        {id: 3, content: "who knew deleting would be so hard"}
       ]
     };
   }
@@ -41,6 +42,12 @@ class CommentBox extends Component {
     }
     this.setState({comments: this.state.comments.concat([comment])})
   }
+  _deleteComment(comment) {
+    debugger;
+    // const commentObj = this.state.comments.filter(x => x.id === comment)
+    // const commentIndex = this.state.comments.indexOf(commentObj);
+    this.setState({comments: this.state.comments.splice(comment - 1, 1)})
+  }
   _handleClick() {
     this.setState({
       showComments: !this.state.showComments
@@ -49,8 +56,9 @@ class CommentBox extends Component {
   _getComments() {
     return this.state.comments.map((comment) => {
       return (<Comment
+        id={comment.id}
         content={comment.content}
-        key={comment.id} />
+        onDelete={this._deleteComment.bind(this)} />
       );
     });
   }
@@ -70,14 +78,19 @@ class Comment extends Component {
     const now = new Date();
     const arrayOptions = ['Javascript', 'Ruby', 'Python']
     return (
-      <div className="comment">
+      <div className="comment" key={this.props.id}>
       <h1>It appears that I have discovered how to add components</h1>
         <ul className="arrayOptions">
           {arrayOptions.map( internship => <li>{internship}</li>)}
         </ul>
         <h4>{this.props.content}</h4>
+        <a href="#" onClick={this._handleDelete.bind(this)}>Delete Comment</a>
       </div>
     );
+  }
+  _handleDelete(event) {
+    event.preventDefault();
+    this.props.onDelete(this.props.id);
   }
 }
 
