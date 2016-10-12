@@ -3,18 +3,36 @@ import logo from './logo.svg';
 import './Comment.css';
 
 class CommentBox extends Component {
+  constructor() {
+    super();
+    this.state = {
+      showComments: false
+    };
+  }
   render() {
     const comments = this._getComments();
     let commentNodes;
     if (this.state.showComments) {
       commentNodes = <div className="commentBox">{comments}</div>;
     }
+    let buttonText;
+    if (this.state.showComments) {
+      buttonText = "Hide Comments"
+    } else {
+      buttonText = "Show Comments"
+    }
     return (
       <div>
         <h4>{this._getCommentsTitle(comments.length)}</h4>
+        <button onClick={this._handleClick.bind(this)}>{buttonText}</button>
         {commentNodes}
       </div>
     )
+  }
+  _handleClick() {
+    this.setState({
+      showComments: !this.state.showComments
+    });
   }
   _getComments() {
     const commentList = [
@@ -39,7 +57,7 @@ class CommentBox extends Component {
 class Comment extends Component {
   render() {
     const now = new Date();
-    const arrayOptions = ['Alpha Media', 'DevelopmentNow', 'Culture Foundry']
+    const arrayOptions = ['Javascript', 'Ruby', 'Python']
     return (
       <div className="comment">
       <h1>It appears that I have discovered how to add components</h1>

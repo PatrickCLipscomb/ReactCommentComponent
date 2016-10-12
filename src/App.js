@@ -5,7 +5,7 @@ import './App.css';
 class App extends Component {
   render() {
     const now = new Date();
-    const internshipOptions = ['Alpha Media', 'DevelopmentNow', 'Culture Foundry']
+    const languageOptions = ['Javascript', 'Ruby', 'Python']
     return (
       <div className="App">
         <div className="App-header">
@@ -18,8 +18,8 @@ class App extends Component {
         <p className="current-time">
           keep in mind the current time: {now.toTimeString()}
         </p>
-        <ul className="internships">
-          {internshipOptions.map( internship => <li>{internship}</li>)}
+        <ul className="languages">
+          {languageOptions.map( language => <li>{language}</li>)}
         </ul>
       </div>
     );
