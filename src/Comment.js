@@ -43,10 +43,12 @@ class CommentBox extends Component {
     this.setState({comments: this.state.comments.concat([comment])})
   }
   _deleteComment(comment) {
-    debugger;
+    const comments = [...this.state.comments]
     // const commentObj = this.state.comments.filter(x => x.id === comment)
-    // const commentIndex = this.state.comments.indexOf(commentObj);
-    this.setState({comments: this.state.comments.splice(comment - 1, 1)})
+    const commentIndex = comments.indexOf(comment);
+    comments.splice(comment.id - 1, 1);
+    this.setState({comments});
+    // this.setState({comments: this.state.comments.splice(comment.key - 1, 1)})
   }
   _handleClick() {
     this.setState({
@@ -56,7 +58,7 @@ class CommentBox extends Component {
   _getComments() {
     return this.state.comments.map((comment) => {
       return (<Comment
-        id={comment.id}
+        key={comment.id}
         content={comment.content}
         onDelete={this._deleteComment.bind(this)} />
       );
@@ -76,13 +78,11 @@ class CommentBox extends Component {
 class Comment extends Component {
   render() {
     const now = new Date();
-    const arrayOptions = ['Javascript', 'Ruby', 'Python']
+    const arrayOptions = ['Javascript', 'JSX', 'React']
     return (
-      <div className="comment" key={this.props.id}>
+      <div className="comment" >
       <h2>{this.props.content}</h2>
-        <ul className="arrayOptions">
-          {arrayOptions.map( internship => <li>{internship}</li>)}
-        </ul>
+
         <h4>It appears that I have discovered how to add components</h4>
         <a href="#" onClick={this._handleDelete.bind(this)}>Delete All Other Comments</a>
       </div>
@@ -90,7 +90,7 @@ class Comment extends Component {
   }
   _handleDelete(event) {
     event.preventDefault();
-    this.props.onDelete(this.props.id);
+    this.props.onDelete(this.props.comment);
   }
 }
 

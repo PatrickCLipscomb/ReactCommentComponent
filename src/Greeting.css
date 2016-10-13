@@ -3,3 +3,9 @@
   color: silver;
   font-weight: bold;
 }
+
+.iden-but {
+  padding: 10px;
+  background: silver;
+  margin-left: 45%;
+}

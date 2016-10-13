@@ -5,7 +5,7 @@ import './App.css';
 class App extends Component {
   render() {
     const now = new Date();
-    const languageOptions = ['Javascript', 'Ruby', 'Python']
+    const languageOptions = ['Javascript', 'JSX', 'React']
     return (
       <div className="App">
         <div className="App-header">
