@@ -3,6 +3,7 @@ import ReactDOM from 'react-dom';
 import App from './App';
 import CommentBox from './Comment';
 import Greeting from './Greeting';
+import Todo from './Todo'
 import './index.css';
 
 ReactDOM.render(
@@ -18,4 +19,9 @@ ReactDOM.render(
 ReactDOM.render(
   <Greeting />,
   document.getElementById('greeting')
+);
+
+ReactDOM.render(
+  <Todo />,
+  document.getElementById('to-do')
 )

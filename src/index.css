@@ -7,3 +7,23 @@ body {
 .internships {
   list-style-type: none;
 }
+
+#greeting {
+  border: solid orange 2px;
+  padding: 5%;
+  margin-left: 15%;
+  margin-right: 15%;
+}
+
+#to-do {
+  border: solid orange 2px;
+  padding: 5%;
+  margin-left: 15%;
+  margin-right: 15%;
+}
+#comments {
+  border: solid orange 2px;
+  padding: 5%;
+  margin-left: 15%;
+  margin-right: 15%;
+}
