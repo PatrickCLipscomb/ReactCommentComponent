@@ -28,6 +28,7 @@ class App extends Component {
         <ul className="languages">
           {languageOptions.map( language => <li>{language}</li>)}
         </ul>
+        <h2>This is a toolbox app, it has useful stuff</h2>
       </div>
     );
   }

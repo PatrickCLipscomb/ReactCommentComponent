@@ -37,18 +37,21 @@ class CommentBox extends Component {
   }
   _addComment(content) {
     const comment = {
-      id: this.state.comments.length + 1,
+      id: Date.now(),
       content
     }
     this.setState({comments: this.state.comments.concat([comment])})
   }
-  _deleteComment(comment) {
-    const comments = [...this.state.comments]
-    // const commentObj = this.state.comments.filter(x => x.id === comment)
-    const commentIndex = comments.indexOf(comment);
-    comments.splice(comment.id - 1, 1);
-    this.setState({comments});
-    // this.setState({comments: this.state.comments.splice(comment.key - 1, 1)})
+  _deleteComment(commentID) {
+    let target
+    const commentsNew = this.state.comments
+    commentsNew.forEach(function(comment) {
+      if (comment.id === commentID) {
+        target = comment
+      }
+    })
+    commentsNew.splice(commentsNew.indexOf(target), 1)
+    this.setState({comments: commentsNew})
   }
   _handleClick() {
     this.setState({
@@ -59,6 +62,7 @@ class CommentBox extends Component {
     return this.state.comments.map((comment) => {
       return (<Comment
         key={comment.id}
+        id={comment.id}
         content={comment.content}
         onDelete={this._deleteComment.bind(this)} />
       );
@@ -81,25 +85,26 @@ class Comment extends Component {
     const arrayOptions = ['Javascript', 'JSX', 'React']
     return (
       <div className="comment" >
-      <h2>{this.props.content}</h2>
-
+        <h2>{this.props.content}</h2>
         <h4>It appears that I have discovered how to add components</h4>
-        <a href="#" onClick={this._handleDelete.bind(this)}>Delete All Other Comments</a>
+        <button onClick={this._handleDelete.bind(this)}>Delete This Comment</button>
       </div>
     );
   }
-  _handleDelete(event) {
-    event.preventDefault();
-    this.props.onDelete(this.props.comment);
+  _handleDelete() {
+    this.props.onDelete(this.props.id);
   }
 }
 
 class CommentForm extends Component {
   render() {
     return (
-      <form onSubmit={this._handleSubmit.bind(this)}>
-        <input placeholder="content" ref={(input) => this._content = input}/>
-      </form>
+      <div>
+        <h4>Add a Comment</h4>
+        <form onSubmit={this._handleSubmit.bind(this)}>
+          <input placeholder="content" ref={(input) => this._content = input}/>
+        </form>
+      </div>
     )
   }
   _handleSubmit(event) {
